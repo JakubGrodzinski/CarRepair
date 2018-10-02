@@ -34,6 +34,8 @@ public class ServletCustomers extends HttpServlet {
             long delId = Long.parseLong(request.getParameter("delId"));
             CustomerDao.delete(delId);
         }
+        request.setAttribute("customers", CustomerDao.getAllCustomers());
+        getServletContext().getRequestDispatcher("/META-INF/views/customers.jsp").forward(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
