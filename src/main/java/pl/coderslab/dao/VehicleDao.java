@@ -106,4 +106,19 @@ public class VehicleDao
         }
     }
 
+    public static void delete (Long id)
+    {
+        String query = "delete from vehicles where id=?";
+        try(Connection connection = DbUtil.getConn())
+        {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setLong(1, id);
+            preparedStatement.executeUpdate();
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
 }

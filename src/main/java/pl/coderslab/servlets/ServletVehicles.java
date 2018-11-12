@@ -15,6 +15,7 @@ public class ServletVehicles extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         String model = request.getParameter("model");
+        String modModel = request.getParameter("modmodel");
         if(model != null)
         {
             String make = request.getParameter("make");
@@ -29,6 +30,27 @@ public class ServletVehicles extends HttpServlet {
             {
                 e.printStackTrace();
             }
+        }
+        else if (modModel != null)
+        {
+            try
+            {
+                Long id = Long.parseLong(request.getParameter("id"));
+                String modMake = request.getParameter("modmake");
+                int modYear = Integer.parseInt(request.getParameter("modyear"));
+                String modRegNumber = request.getParameter("modregnumber");
+                java.sql.Date modNextServicing = Date.valueOf(request.getParameter("modnextservicing"));
+                VehicleDao.modify(id, modModel, modMake, modYear, modRegNumber, modNextServicing);
+            }
+            catch (NumberFormatException e)
+            {
+                e.printStackTrace();
+            }
+        }
+        else
+        {
+            Long delid = Long.parseLong(request.getParameter("delid"));
+            VehicleDao.delete(delid);
         }
         doGet(request, response);
     }
