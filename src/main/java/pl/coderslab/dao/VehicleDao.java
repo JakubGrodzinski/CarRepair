@@ -29,7 +29,7 @@ public class VehicleDao
                 vehicle.setMake(resultSet.getString("make"));
                 vehicle.setYear(resultSet.getInt("year"));
                 vehicle.setRegNumber(resultSet.getString("regnumber"));
-                vehicle.setNext(resultSet.getDate("date"));
+                vehicle.setNext(resultSet.getDate("next"));
                 vehicle.setCustomer(CustomerDao.getCustomerById(resultSet.getLong("customer_id")));
                 vehicleList.add(vehicle);
             }
@@ -69,7 +69,7 @@ public class VehicleDao
 
     public static void insert (String model, String make, int year, String regNumber, Date next)
     {
-        String query = "insert into vehicles (id, model, make, year, regnumner, next) values (null, ?, ?, ?, ?,?)";
+        String query = "insert into vehicles (id, model, make, year, regnumber, next) values (null, ?, ?, ?, ?,?)";
         try(Connection connection = DbUtil.getConn())
         {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -78,7 +78,27 @@ public class VehicleDao
             preparedStatement.setInt(3, year);
             preparedStatement.setString(4, regNumber);
             preparedStatement.setDate(5, (java.sql.Date)next);
+            preparedStatement.executeUpdate();
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
 
+    public static void modify (Long id, String model, String make, int year, String regNumber, Date next)
+    {
+        String query = "update vehicles set model=?, make=?, year=?, regnumber=?, next=? where id=?";
+        try(Connection connection = DbUtil.getConn())
+        {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, model);
+            preparedStatement.setString(2, make);
+            preparedStatement.setInt(3, year);
+            preparedStatement.setString(4, regNumber);
+            preparedStatement.setDate(5, (java.sql.Date)next);
+            preparedStatement.setLong(6, id);
+            preparedStatement.executeUpdate();
         }
         catch (SQLException e)
         {

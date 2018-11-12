@@ -64,8 +64,7 @@ public class ServletEmployees extends HttpServlet
                 e.printStackTrace();
             }
         }
-        request.setAttribute("empls", EmployeeDao.loadAll());
-        getServletContext().getRequestDispatcher("/META-INF/views/employees.jsp").forward(request, response);
+        doGet(request, response);
 
     }
 
