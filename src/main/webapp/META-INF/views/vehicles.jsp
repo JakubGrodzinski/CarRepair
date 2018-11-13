@@ -13,6 +13,7 @@
             <th>Registration Number</th>
             <th>Next servicing</th>
             <th>Assigned Customer</th>
+            <th>Assign Customer</th>
         </tr>
     </thead>
     <tbody>
@@ -25,6 +26,34 @@
                 <td>${vehicle.getRegNumber()}</td>
                 <td>${vehicle.getNext()}</td>
                 <td>${vehicle.getCustomer().getSurname()}</td>
+                <td>
+                    <button type="button" class="btn btn-dark btn-lg" data-toggle="modal" data-target="#modal${vehicle.getId()}">Assign customer</button>
+
+                    <!-- Modal -->
+                    <div id="modal${vehicle.getId()}" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Assign Customer</h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="/vehicles" method="post">
+                                        <input type="hidden" name="vehid" value="${vehicle.getId()}">
+                                        <input type="number" step="1" name="custid" placeholder="Customer Id">
+                                        <input type="submit" value="Assign">
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </td>
             </tr>
         </c:forEach>
     </tbody>

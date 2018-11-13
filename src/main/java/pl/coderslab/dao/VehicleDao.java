@@ -121,4 +121,20 @@ public class VehicleDao
         }
     }
 
+    public static void assignCustomer (Long vehId, long custId)
+    {
+        String query = "update vehicles set customer_id=? where id=?";
+        try (Connection connection = DbUtil.getConn())
+        {
+            PreparedStatement preparedStatement= connection.prepareStatement(query);
+            preparedStatement.setLong(1, custId);
+            preparedStatement.setLong(2, vehId);
+            preparedStatement.executeUpdate();
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
 }

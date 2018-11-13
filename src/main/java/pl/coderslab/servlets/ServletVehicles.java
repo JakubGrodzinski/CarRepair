@@ -16,6 +16,7 @@ public class ServletVehicles extends HttpServlet {
     {
         String model = request.getParameter("model");
         String modModel = request.getParameter("modmodel");
+        String custId = request.getParameter("custid");
         if(model != null)
         {
             String make = request.getParameter("make");
@@ -41,6 +42,19 @@ public class ServletVehicles extends HttpServlet {
                 String modRegNumber = request.getParameter("modregnumber");
                 java.sql.Date modNextServicing = Date.valueOf(request.getParameter("modnextservicing"));
                 VehicleDao.modify(id, modModel, modMake, modYear, modRegNumber, modNextServicing);
+            }
+            catch (NumberFormatException e)
+            {
+                e.printStackTrace();
+            }
+        }
+        else if (custId != null)
+        {
+            try
+            {
+                Long vehicleId = Long.parseLong(request.getParameter("vehid"));
+                long customerId = Long.parseLong(custId);
+                VehicleDao.assignCustomer(vehicleId, customerId);
             }
             catch (NumberFormatException e)
             {
