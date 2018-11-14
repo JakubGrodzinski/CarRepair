@@ -35,11 +35,9 @@ public class Order
         this.empHoursQuantity = empHoursQuantity;
     }
 
-    public Order ()
-    {
-        if (assignedEmployee != null)
-        this.empHourCost = this.assignedEmployee.getCost();
-    }
+    public Order () {}
+
+
 
     public Long getId() {
         return id;
@@ -121,6 +119,11 @@ public class Order
         this.totalCost = totalCost;
     }
 
+    public void setTotalCost()
+    {
+        this.totalCost = this.empHourCost * this.empHoursQuantity + this.partsCosts;
+    }
+
     public Double getPartsCosts() {
         return partsCosts;
     }
@@ -129,12 +132,18 @@ public class Order
         this.partsCosts = partsCosts;
     }
 
+
     public Double getEmpHourCost() {
         return empHourCost;
     }
 
     public void setEmpHourCost(Double empHourCost) {
         this.empHourCost = empHourCost;
+    }
+
+    public void setEmpHourCost()
+    {
+        this.empHourCost = this.assignedEmployee.getCost();
     }
 
     public Double getEmpHoursQuantity() {

@@ -99,4 +99,58 @@ public class OrderDao
             e.printStackTrace();
         }
     }
+
+    public static void modify (Long id, java.sql.Date reception, java.sql.Date planStart, java.sql.Date actStart, String descProb, String descSol, Double partsCost, Double empQuantity)
+    {
+        String query = "update orders set reception=?, planstart=?, actstart=?, descprob=?, descsol=?, partscost=?, employeehourquantity=? where id=?";
+        try(Connection connection = DbUtil.getConn())
+        {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setDate(1, reception);
+            preparedStatement.setDate(2, planStart);
+            preparedStatement.setDate(3, actStart);
+            preparedStatement.setString(4, descProb);
+            preparedStatement.setString(5, descSol);
+            preparedStatement.setDouble(6, partsCost);
+            preparedStatement.setDouble(7, empQuantity);
+            preparedStatement.setLong(8, id);
+            preparedStatement.executeUpdate();
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public static void delete (Long id)
+    {
+        String query = "delete from orders where id=?";
+        try (Connection connection = DbUtil.getConn())
+        {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setLong(1, id);
+            preparedStatement.executeUpdate();
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public static void assignEmployee (Long order_id, long employee_id)
+    {
+        String query = "update orders set employee_id=? where id=?";
+        try(Connection connection = DbUtil.getConn())
+        {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setLong(1, employee_id);
+            preparedStatement.setLong(2, order_id);
+            // TO DO - connect employee with his cost and total cost
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
 }
