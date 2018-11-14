@@ -34,7 +34,7 @@ public class StatusDao
         return result;
     }
 
-    public static List<Status> loadAll ()
+    public static List<Status> loadAll()
     {
         List<Status> result = new ArrayList<>();
         String query = "select * from statuses";
