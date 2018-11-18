@@ -48,6 +48,7 @@ public class VehicleDao
         try (Connection connection = DbUtil.getConn())
         {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if(resultSet.next())
             {

@@ -14,7 +14,25 @@ import java.sql.Date;
 public class ServletOrders extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
+        java.sql.Date reception = Date.valueOf(request.getParameter("reception"));
+        if(reception != null)
+        {
+            String problem = request.getParameter("problem");
+            String solution = request.getParameter("solution");
+            try
+            {
+                Double partscost = Double.parseDouble(request.getParameter("partscost"));
+                Double empmhourquantity = Double.parseDouble(request.getParameter("emphourquantity"));
+                OrderDao.insert(reception, problem, solution, partscost, empmhourquantity);
+            }
+            catch (NumberFormatException e)
+            {
+                e.printStackTrace();
+            }
+        }
 
+
+        doGet(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException

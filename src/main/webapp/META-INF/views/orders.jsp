@@ -16,6 +16,9 @@
                 Planned Start
             </th>
             <th>
+                Actual Start
+            </th>
+            <th>
                 Employee
             </th>
             <th>
@@ -69,7 +72,7 @@
                         ${order.getDescriptionSolution()}
                 </td>
                 <td>
-                        ${order.getVehicle()}
+                        ${order.getVehicle().getModel()}
                 </td>
                 <td>
                         ${order.getTotalCost()}
@@ -84,7 +87,7 @@
                     ${order.getEmpHoursQuantity()}
                 </td>
                 <td>
-                    ${order.getStatus()}
+                    ${order.getStatus().getStat()}
                 </td>
             </tr>
         </c:forEach>
@@ -107,10 +110,10 @@
                 <form action="/orders" method="post" >
 
                     <input type="date" name="reception" placeholder="Reception Date"><br>
-                    <input type="text" name="make" placeholder="make"><br>
-                    <input type="number" step="1" name="year" placeholder="year of production"><br>
-                    <input type="text" name="regnumber" placeholder="Registration number"><br>
-                    <input type="date" name="nextservicing" placeholder="Next servicing"><br>
+                    <input type="text" name="problem" placeholder="Problem Description"><br>
+                    <input type="text" name="solution" placeholder="Solution Description"><br>
+                    <input type="number" name="partscost" placeholder="Parts cost" step="0.01"><br>
+                    <input type="number" name="emphourquantity" placeholder="Quantity of hours" step="0.01"><br>
                     <input type="submit" value="Add">
                 </form>
             </div>

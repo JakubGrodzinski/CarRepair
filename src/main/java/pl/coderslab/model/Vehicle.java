@@ -12,7 +12,8 @@ public class Vehicle
     private Date next;
     private Customer customer;
 
-    public Vehicle(Long id, String model, String make, int year, String regNumber, Date next, Customer customer) {
+    public Vehicle(Long id, String model, String make, int year, String regNumber, Date next, Customer customer)
+    {
         this.id = id;
         this.model = model;
         this.make = make;
