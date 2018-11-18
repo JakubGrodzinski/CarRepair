@@ -79,19 +79,17 @@ public class OrderDao
         return order;
     }
 
-    public static void insert (java.sql.Date reception, java.sql.Date planStart, java.sql.Date actStart, String descProb, String descSol, Double partsCost, Double empQuantity)
+    public static void insert (java.sql.Date reception, String descProb, String descSol, Double partsCost, Double empQuantity)
     {
-        String query = "insert into orders (id, reception, planstart, actstart, descprob, descsol, partscost, employeehourquantity) values (null, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "insert into orders (id, reception, descprob, descsol, partscost, employeehourquantity) values (null, ?, ?, ?, ?, ?)";
         try(Connection connection = DbUtil.getConn())
         {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setDate(1, reception);
-            preparedStatement.setDate(2, planStart);
-            preparedStatement.setDate(3, actStart);
-            preparedStatement.setString(4, descProb);
-            preparedStatement.setString(5, descSol);
-            preparedStatement.setDouble(6, partsCost);
-            preparedStatement.setDouble(7, empQuantity);
+            preparedStatement.setString(2, descProb);
+            preparedStatement.setString(3, descSol);
+            preparedStatement.setDouble(4, partsCost);
+            preparedStatement.setDouble(5, empQuantity);
             preparedStatement.executeUpdate();
         }
         catch (SQLException e)
@@ -100,20 +98,18 @@ public class OrderDao
         }
     }
 
-    public static void modify (Long id, java.sql.Date reception, java.sql.Date planStart, java.sql.Date actStart, String descProb, String descSol, Double partsCost, Double empQuantity)
+    public static void modify (Long id, java.sql.Date reception, String descProb, String descSol, Double partsCost, Double empQuantity)
     {
-        String query = "update orders set reception=?, planstart=?, actstart=?, descprob=?, descsol=?, partscost=?, employeehourquantity=? where id=?";
+        String query = "update orders set reception=?, descprob=?, descsol=?, partscost=?, employeehourquantity=? where id=?";
         try(Connection connection = DbUtil.getConn())
         {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setDate(1, reception);
-            preparedStatement.setDate(2, planStart);
-            preparedStatement.setDate(3, actStart);
-            preparedStatement.setString(4, descProb);
-            preparedStatement.setString(5, descSol);
-            preparedStatement.setDouble(6, partsCost);
-            preparedStatement.setDouble(7, empQuantity);
-            preparedStatement.setLong(8, id);
+            preparedStatement.setString(2, descProb);
+            preparedStatement.setString(3, descSol);
+            preparedStatement.setDouble(4, partsCost);
+            preparedStatement.setDouble(5, empQuantity);
+            preparedStatement.setLong(6, id);
             preparedStatement.executeUpdate();
         }
         catch (SQLException e)
